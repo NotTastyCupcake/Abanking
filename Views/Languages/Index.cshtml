@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Work.Models.Language>
+
+@{
+    ViewData["Title"] = "Список языков";
+}
+
+<h1>Список языков программирования</h1>
+
+<p>
+    <a asp-action="Create">Вписать язык программирования</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameLanguage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameLanguage)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdLanguage">Изменить</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdLanguage">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

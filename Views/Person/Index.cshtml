@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Work.Models.MainPersonModel>
+
+@{
+    ViewData["Title"] = "Список сотрудников";
+}
+
+<h1>Список сотрудников</h1>
+
+<p>
+    <a asp-action="Add">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Language)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.NameDepart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language.NameLanguage)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdPerson">Изменить</a> |
+
+                <a asp-action="Delete" asp-route-id="@item.IdPerson">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

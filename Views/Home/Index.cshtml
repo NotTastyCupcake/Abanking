@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Начальная страница";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать!</h1>
+    <p><a> Мое первое задания для перовго в жизни собеседования) </a>.</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Список сотрудников(задание)</h5>
+                    <p class="card-text">Text</p>
+                    <a class="btn btn-primary"  asp-area="" asp-controller="Person" asp-action="Index">Список сотрудников</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Список отделов</h5>
+                    <p class="card-text">Text</p>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Departments" asp-action="Index">Список отделов</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Список языков</h5>
+                <p class="card-text">Text</p>
+                <a class="btn btn-primary" asp-area="" asp-controller="Languages" asp-action="Index">Список языков сотрудников</a>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

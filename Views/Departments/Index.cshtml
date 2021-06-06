@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Work.Models.Department>
+
+@{
+    ViewData["Title"] = "Список отделов";
+}
+
+<h1>Список отделов</h1>
+
+<p>
+    <a asp-action="Create">Добавить отдел</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameDepart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Floor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameDepart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Floor)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdDepartment">Изменить</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdDepartment">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

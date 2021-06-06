@@ -1,0 +1,55 @@
+﻿@model Work.Models.MainPersonModel
+
+@{
+    ViewData["Title"] = "Добавить сотрудника";
+}
+
+<h1>Добавление сотрудника</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <p>Имя</p>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>Фамилия</p>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>Возраст</p>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>Пол</p>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>Отдел</p>
+                <select asp-for="IdDepartment" class ="form-control" asp-items="ViewBag.IdDepartment"></select>
+            </div>
+            <div class="form-group">
+                <p>Язык</p>
+                <select asp-for="IdLanguage" class ="form-control" asp-items="ViewBag.IdLanguage"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
