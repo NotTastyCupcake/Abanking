@@ -11,20 +11,23 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="ui-widget">
-                <label for="lang">Название языка</label>
-                <input id="lang"/>
-                <span asp-validation-for="NameLanguage"></span>
+
+            <div class="form-group ui-widget">
+                <label asp-for="NameLanguage" class="control-label"></label>
+                <input asp-for="NameLanguage" class="form-control" />
+                <span asp-validation-for="NameLanguage" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Добавить" class="btn btn-primary" />
+                <a asp-action="Index">Вернуться в список</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Вернуться в список</a>
+
 </div>
 
 @section Scripts {

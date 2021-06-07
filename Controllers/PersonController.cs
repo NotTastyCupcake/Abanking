@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Work.Models;
 
 namespace Work.Controllers
@@ -23,31 +25,12 @@ namespace Work.Controllers
             return View(await personContext.ToListAsync());
         }
 
-        // GET: Person/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var mainPersonModel = await _context.Persons
-                .Include(m => m.Department)
-                .Include(m => m.Language)
-                .FirstOrDefaultAsync(m => m.IdPerson == id);
-            if (mainPersonModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(mainPersonModel);
-        }
 
         // GET: Person/Create
         public IActionResult Add()
         {
-            ViewData["IdDepartment"] = new SelectList(_context.Deportaments, "IdDepartment", "NameDepart");
-            ViewData["IdLanguage"] = new SelectList(_context.Languages, "IdLanguage", "NameLanguage");
+            PopulateDepartmentsDropDownList();
+            PopulateLanguageDropDownList();
             return View();
         }
 
@@ -64,8 +47,8 @@ namespace Work.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdDepartment"] = new SelectList(_context.Deportaments, "IdDepartment", "NameDepart", mainPersonModel.IdDepartment);
-            ViewData["IdLanguage"] = new SelectList(_context.Languages, "IdLanguage", "NameLanguage", mainPersonModel.IdLanguage);
+            PopulateDepartmentsDropDownList(mainPersonModel.IdDepartment);
+            PopulateLanguageDropDownList(mainPersonModel.IdLanguage);
             return View(mainPersonModel);
         }
 
@@ -82,8 +65,8 @@ namespace Work.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdDepartment"] = new SelectList(_context.Deportaments, "IdDepartment", "NameDepart", mainPersonModel.IdDepartment);
-            ViewData["IdLanguage"] = new SelectList(_context.Languages, "IdLanguage", "NameLanguage", mainPersonModel.IdLanguage);
+            PopulateDepartmentsDropDownList(mainPersonModel.IdDepartment);
+            PopulateLanguageDropDownList(mainPersonModel.IdLanguage);
             return View(mainPersonModel);
         }
 
@@ -119,8 +102,8 @@ namespace Work.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdDepartment"] = new SelectList(_context.Deportaments, "IdDepartment", "NameDepart", mainPersonModel.IdDepartment);
-            ViewData["IdLanguage"] = new SelectList(_context.Languages, "IdLanguage", "NameLanguage", mainPersonModel.IdLanguage);
+            PopulateDepartmentsDropDownList(mainPersonModel.IdDepartment);
+            PopulateLanguageDropDownList(mainPersonModel.IdLanguage);
             return View(mainPersonModel);
         }
 
@@ -153,6 +136,21 @@ namespace Work.Controllers
             _context.Persons.Remove(mainPersonModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
+        {
+            var departmentsQuery = from d in _context.Deportaments
+                                   orderby d.NameDepart
+                                   select d;
+            ViewBag.IdDepartment = new SelectList(departmentsQuery, "IdDepartment", "NameDepart", selectedDepartment);
+        }
+
+        private void PopulateLanguageDropDownList(object selectedLanguages = null)
+        {
+            var languageQuery = from d in _context.Languages
+                                orderby d.NameLanguage
+                                select d;
+            ViewBag.IdLanguage = new SelectList(languageQuery, "IdLanguage", "NameLanguage", selectedLanguages);
         }
 
         private bool MainPersonModelExists(int id)

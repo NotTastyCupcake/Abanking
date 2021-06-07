@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Work.Models;
 
 namespace Work.Controllers
@@ -21,23 +24,7 @@ namespace Work.Controllers
             return View(await _context.Deportaments.ToListAsync());
         }
 
-        // GET: Departments/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var department = await _context.Deportaments
-                .FirstOrDefaultAsync(m => m.IdDepartment == id);
-            if (department == null)
-            {
-                return NotFound();
-            }
-
-            return View(department);
-        }
 
         // GET: Departments/Create
         public IActionResult Create()

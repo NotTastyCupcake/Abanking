@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Work.Models;
 
 namespace Work.Controllers
@@ -21,23 +24,6 @@ namespace Work.Controllers
             return View(await _context.Languages.ToListAsync());
         }
 
-        // GET: Languages/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var language = await _context.Languages
-                .FirstOrDefaultAsync(m => m.IdLanguage == id);
-            if (language == null)
-            {
-                return NotFound();
-            }
-
-            return View(language);
-        }
 
         // GET: Languages/Create
         public IActionResult Create()

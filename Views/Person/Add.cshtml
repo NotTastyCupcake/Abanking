@@ -12,43 +12,41 @@
         <form asp-action="Add">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <p>Имя</p>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <label asp-for="FirstName" class="col-sm-3"></label>
+                <input asp-for="FirstName"/>
+                <span asp-validation-for="FirstName"></span>
             </div>
             <div class="form-group">
-                <p>Фамилия</p>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+                <label asp-for="LastName" class="col-sm-3"></label>
+                <input asp-for="LastName" />
+                <span asp-validation-for="LastName"></span>
             </div>
             <div class="form-group">
-                <p>Возраст</p>
-                <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
+                <label asp-for="Age" class="col-sm-3"></label>
+                <input asp-for="Age" />
+                <span asp-validation-for="Age"></span>
             </div>
             <div class="form-group">
-                <p>Пол</p>
-                <input asp-for="Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-danger"></span>
+                <label asp-for="Gender" class="col-sm-3"></label>
+                <input asp-for="Gender" />
+                <span asp-validation-for="Gender"></span>
             </div>
             <div class="form-group">
-                <p>Отдел</p>
-                <select asp-for="IdDepartment" class ="form-control" asp-items="ViewBag.IdDepartment"></select>
+                <label asp-for="IdDepartment" class="col-sm-3"></label>
+                <select asp-for="IdDepartment" asp-items="ViewBag.IdDepartment"></select>
             </div>
             <div class="form-group">
-                <p>Язык</p>
-                <select asp-for="IdLanguage" class ="form-control" asp-items="ViewBag.IdLanguage"></select>
+                <label asp-for="IdLanguage" class="col-sm-3"></label>
+                <select asp-for="IdLanguage" asp-items="ViewBag.IdLanguage"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Добавить" class="btn btn-primary" />
+                <a asp-action="Index">Назад к списку</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Назад к списку</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
