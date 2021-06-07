@@ -11,30 +11,27 @@ namespace Work.Controllers
 {
     public class DepartmentsController : Controller
     {
+        #region Поля контролерра
         private readonly PersonContext _context;
 
         public DepartmentsController(PersonContext context)
         {
             _context = context;
         }
+        #endregion
 
-        // GET: Departments
+        #region Вывод списка
         public async Task<IActionResult> Index()
         {
             return View(await _context.Deportaments.ToListAsync());
         }
+        #endregion
 
-
-
-        // GET: Departments/Create
+        #region Добавление отдела
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Departments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdDepartment,NameDepart,Floor")] Department department)
@@ -47,8 +44,9 @@ namespace Work.Controllers
             }
             return View(department);
         }
+        #endregion
 
-        // GET: Departments/Edit/5
+        #region Редактирование
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -64,9 +62,6 @@ namespace Work.Controllers
             return View(department);
         }
 
-        // POST: Departments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdDepartment,NameDepart,Floor")] Department department)
@@ -98,8 +93,9 @@ namespace Work.Controllers
             }
             return View(department);
         }
+        #endregion
 
-        // GET: Departments/Delete/5
+        #region Удалить
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,10 +123,18 @@ namespace Work.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
+        #region Дополнительные методы
+        /// <summary>
+        /// Проверка - существует ID депортаминта или нет
+        /// </summary>
+        /// <param name="id">ID Депортаминта</param>
+        /// <returns></returns>
         private bool DepartmentExists(int id)
         {
             return _context.Deportaments.Any(e => e.IdDepartment == id);
         }
+        #endregion
     }
 }

@@ -13,7 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="col-sm-3"></label>
-                <input asp-for="FirstName"/>
+                <input asp-for="FirstName" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Person")' />
                 <span asp-validation-for="FirstName"></span>
             </div>
             <div class="form-group">

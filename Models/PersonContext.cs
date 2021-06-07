@@ -3,6 +3,7 @@ namespace Work.Models
 {
     public class PersonContext : DbContext
     {
+        #region Соединение моделей с базами данных
         public PersonContext(DbContextOptions<PersonContext> options)
             : base(options)
         {
@@ -12,8 +13,10 @@ namespace Work.Models
         {
 
         }
+
         public DbSet<MainPersonModel> Persons { get; set; }
         public DbSet<Department> Deportaments { get; set; }
         public DbSet<Language> Languages { get; set; }
+        #endregion
     }
 }

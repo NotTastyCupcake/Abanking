@@ -11,29 +11,28 @@ namespace Work.Controllers
 {
     public class LanguagesController : Controller
     {
+        #region Поля контролерра
         private readonly PersonContext _context;
 
         public LanguagesController(PersonContext context)
         {
             _context = context;
         }
+        #endregion
 
-        // GET: Languages
+        #region Список языков программирования
         public async Task<IActionResult> Index()
         {
             return View(await _context.Languages.ToListAsync());
         }
+        #endregion
 
-
-        // GET: Languages/Create
+        #region Добавление языка программировая
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Languages/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdLanguage,NameLanguage")] Language language)
@@ -46,8 +45,9 @@ namespace Work.Controllers
             }
             return View(language);
         }
+        #endregion
 
-        // GET: Languages/Edit/5
+        #region Изменить язык программирования
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -63,9 +63,7 @@ namespace Work.Controllers
             return View(language);
         }
 
-        // POST: Languages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdLanguage,NameLanguage")] Language language)
@@ -97,25 +95,9 @@ namespace Work.Controllers
             }
             return View(language);
         }
+        #endregion
 
-        // GET: Languages/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var language = await _context.Languages
-                .FirstOrDefaultAsync(m => m.IdLanguage == id);
-            if (language == null)
-            {
-                return NotFound();
-            }
-
-            return View(language);
-        }
-
+        #region Удалить язык программирования
         // POST: Languages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -126,10 +108,13 @@ namespace Work.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
+        #region Дополнительные методы
         private bool LanguageExists(int id)
         {
             return _context.Languages.Any(e => e.IdLanguage == id);
         }
+        #endregion
     }
 }

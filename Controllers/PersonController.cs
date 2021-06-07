@@ -11,22 +11,24 @@ namespace Work.Controllers
 {
     public class PersonController : Controller
     {
+        #region Полня контролерра
         private readonly PersonContext _context;
 
         public PersonController(PersonContext context)
         {
             _context = context;
         }
+        #endregion
 
-        // GET: Person
+        #region Выводит список
         public async Task<IActionResult> Index()
         {
             var personContext = _context.Persons.Include(m => m.Department).Include(m => m.Language);
             return View(await personContext.ToListAsync());
         }
+        #endregion
 
-
-        // GET: Person/Create
+        #region Добавляет сотрудника
         public IActionResult Add()
         {
             PopulateDepartmentsDropDownList();
@@ -34,9 +36,6 @@ namespace Work.Controllers
             return View();
         }
 
-        // POST: Person/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add([Bind("IdPerson,FirstName,LastName,Age,Gender,IdDepartment,IdLanguage")] MainPersonModel mainPersonModel)
@@ -51,8 +50,9 @@ namespace Work.Controllers
             PopulateLanguageDropDownList(mainPersonModel.IdLanguage);
             return View(mainPersonModel);
         }
+        #endregion
 
-        // GET: Person/Edit/5
+        #region Изменение
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -70,9 +70,6 @@ namespace Work.Controllers
             return View(mainPersonModel);
         }
 
-        // POST: Person/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdPerson,FirstName,LastName,Age,Gender,IdDepartment,IdLanguage")] MainPersonModel mainPersonModel)
@@ -106,8 +103,9 @@ namespace Work.Controllers
             PopulateLanguageDropDownList(mainPersonModel.IdLanguage);
             return View(mainPersonModel);
         }
+        #endregion
 
-        // GET: Person/Delete/5
+        #region Удаление
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +135,13 @@ namespace Work.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
+
+        #region Дополнительные методы
+        /// <summary>
+        /// SelectList названий отделов из таблицы отделов
+        /// </summary>
+        /// <param name="selectedDepartment">ID отдела</param>
         private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
         {
             var departmentsQuery = from d in _context.Deportaments
@@ -145,6 +150,10 @@ namespace Work.Controllers
             ViewBag.IdDepartment = new SelectList(departmentsQuery, "IdDepartment", "NameDepart", selectedDepartment);
         }
 
+        /// <summary>
+        /// SelectList названий языка из таблицы языков
+        /// </summary>
+        /// <param name="selectedLanguages">ID Языка</param>
         private void PopulateLanguageDropDownList(object selectedLanguages = null)
         {
             var languageQuery = from d in _context.Languages
@@ -153,9 +162,19 @@ namespace Work.Controllers
             ViewBag.IdLanguage = new SelectList(languageQuery, "IdLanguage", "NameLanguage", selectedLanguages);
         }
 
+        /// <returns>Выводит список имен из базы данных.</returns>
+        public ActionResult AutocompleteSearch(string term)
+        {
+             var models =  _context.Persons.Where(a => a.FirstName.Contains(term))
+                    .Select(a => new { value = a.FirstName })
+                    .Distinct();
+            return Json(models);
+        }
+
         private bool MainPersonModelExists(int id)
         {
             return _context.Persons.Any(e => e.IdPerson == id);
         }
+        #endregion
     }
 }
