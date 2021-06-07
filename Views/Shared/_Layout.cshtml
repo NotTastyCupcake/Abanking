@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Abanking</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css">
 
 </head>
 <body>
@@ -51,16 +52,15 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/jquery-3.6.0.js"></script>
-    <script src="~/lib/jquery/jquery-3.6.0.min.js"></script>
-    <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-    <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+
 
     <script>
         $(function () {
             $("[data-autocomplete-source]").each(function () {
                 var target = $(this);
                 target.autocomplete({ source: target.attr("data-autocomplete-source") });
-            })(jQuery) ;
+            })(jQuery);
         });
     </script>
     @RenderSection("Scripts", required: false)
